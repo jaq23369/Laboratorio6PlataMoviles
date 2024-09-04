@@ -182,6 +182,23 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
+@Composable
+fun RecipeCard(navController: NavController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .clickable { /* Lógica para ir a detalles de la receta */ },
+    ) {
+        Column {
+            // Reemplaza este recurso con la imagen de la receta que tengas
+            Image(
+
+                painter = painterResource(id = R.drawable.lasagna),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth().height(180.dp),
+                contentScale = ContentScale.Crop
+            )
 
 
 
