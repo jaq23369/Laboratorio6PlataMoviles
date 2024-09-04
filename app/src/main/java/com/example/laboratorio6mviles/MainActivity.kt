@@ -145,6 +145,44 @@ fun MenuScreen(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class) // Agregar esto si estás usando componentes experimentales
+@Composable
+fun HomeScreen(navController: NavController) {
+    Column {
+        TopAppBar(
+            title = { Text("POPULAR RECIPES") },
+            colors = TopAppBarDefaults.smallTopAppBarColors(
+                containerColor = Color(0xFFFF0000),
+                titleContentColor = Color.White
+            ),
+            navigationIcon = {
+                IconButton(onClick = { navController.navigate("menu") }) {
+                    Icon(Icons.Default.Menu, contentDescription = null, tint = Color.White)
+                }
+            }
+        )
+        TabRow(
+            selectedTabIndex = 0,
+            containerColor = Color.White
+        ) {
+            listOf("APPETIZERS", "ENTREES", "DESSERT").forEachIndexed { index, title ->
+                Tab(
+                    selected = index == 0,
+                    onClick = { /* Cambiar el índice seleccionado */ },
+                    text = { Text(title) }
+                )
+            }
+        }
+        LazyColumn {
+            item {
+                RecipeCard(navController)
+            }
+            // Añadir más items de recetas si es necesario
+        }
+    }
+}
+
+
 
 
 
