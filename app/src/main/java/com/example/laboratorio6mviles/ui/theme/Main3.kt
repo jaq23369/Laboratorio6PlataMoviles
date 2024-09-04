@@ -128,3 +128,23 @@ fun SocialMediaIcons() {
         )
     }
 }
+
+@Composable
+fun RatingStars() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        // Puedes reemplazar esto con íconos de estrellas para la calificación
+        repeat(5) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_star), // Reemplaza con tu imagen de estrella
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier.size(32.dp)
+            )
+        }
+    }
+}
