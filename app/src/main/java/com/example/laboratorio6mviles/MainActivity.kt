@@ -199,6 +199,27 @@ fun RecipeCard(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(180.dp),
                 contentScale = ContentScale.Crop
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Prime Rib Roast",
+                style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
+                modifier = Modifier.padding(8.dp)
+            )
+            Row(
+                modifier = Modifier.padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.Star, contentDescription = null, tint = Color.Yellow)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("4.5")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("685 SHARES")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("107 SAVES")
+            }
+        }
+    }
+}
 
 
 
