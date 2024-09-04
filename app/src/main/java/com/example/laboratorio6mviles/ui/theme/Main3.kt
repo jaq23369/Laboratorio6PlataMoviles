@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.laboratorio6mviles.R
 
 class MainActivity3 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,5 +93,38 @@ fun CompleteCard() {
             )
             RatingStars()
         }
+    }
+}
+@Composable
+fun SocialMediaIcons() {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        // Íconos de redes sociales (debes agregar imágenes en drawable)
+        Icon(
+            painter = painterResource(id = R.drawable.ic_google), // Reemplaza con tu imagen
+            contentDescription = "Google+",
+            tint = Color.Red,
+            modifier = Modifier.size(32.dp)
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_facebook), // Reemplaza con tu imagen
+            contentDescription = "Facebook",
+            tint = Color.Blue,
+            modifier = Modifier.size(32.dp)
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_instagram), // Reemplaza con tu imagen
+            contentDescription = "Instagram",
+            tint = Color.Magenta,
+            modifier = Modifier.size(32.dp)
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_twitter), // Reemplaza con tu imagen
+            contentDescription = "Twitter",
+            tint = Color.Cyan,
+            modifier = Modifier.size(32.dp)
+        )
     }
 }
