@@ -19,4 +19,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+class MainActivity3 : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            RecipeDetailsCompleteScreen()
+        }
+    }
+}
 
+@Composable
+fun RecipeDetailsCompleteScreen() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Gray.copy(alpha = 0.3f)), // Fondo translúcido
+        contentAlignment = Alignment.Center
+    ) {
+        CompleteCard()
+    }
+}
