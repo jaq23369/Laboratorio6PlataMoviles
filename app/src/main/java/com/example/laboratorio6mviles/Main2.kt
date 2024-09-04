@@ -41,7 +41,7 @@ fun RecipeDetailsScreen() {
     ) {
         item {
             Image(
-                painter = painterResource(id = R.drawable.prime_rib_roast),
+                painter = painterResource(id = R.drawable.prime),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
