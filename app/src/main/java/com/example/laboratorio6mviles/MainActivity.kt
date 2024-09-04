@@ -78,6 +78,72 @@ fun AppNavigation() {
     }
 }
 
+@Composable
+fun SplashScreen(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFF0000)),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            // Reemplaza este recurso con el ícono que tengas
+            Icon(
+                painter = painterResource(id = R.drawable.sombrerochef),
+                contentDescription = null,
+                modifier = Modifier.size(100.dp),
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Chef Recipes",
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+    }
+
+    // Navegar a la pantalla principal después de un retraso
+    LaunchedEffect(key1 = true) {
+        delay(2000)
+        navController.navigate("home") {
+            popUpTo("splash") { inclusive = true }
+        }
+    }
+}
+
+@Composable
+fun MenuScreen(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFF0000))
+            .padding(16.dp)
+    ) {
+        Text("POPULAR RECIPES", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("SAVED RECIPES", color = Color.White, fontSize = 18.sp)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("SHOPPING LIST", color = Color.White, fontSize = 18.sp)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("SETTINGS", color = Color.White, fontSize = 18.sp)
+        Spacer(modifier = Modifier.weight(1f))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Reemplaza este recurso con la imagen de perfil que tengas
+            Icon(
+                painter = painterResource(id = R.drawable.profilepic),
+                contentDescription = null,
+                modifier = Modifier.size(40.dp),
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("HARRY TRUMAN", color = Color.White, fontSize = 16.sp)
+        }
+    }
+}
 
 
 
