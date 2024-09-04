@@ -39,3 +39,58 @@ fun RecipeDetailsCompleteScreen() {
         CompleteCard()
     }
 }
+
+@Composable
+fun CompleteCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .clip(RoundedCornerShape(16.dp)),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            // Botón para cerrar la tarjeta (puede agregar funcionalidad más adelante)
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                IconButton(onClick = { /* Lógica para cerrar la tarjeta */ }) {
+                    Icon(Icons.Default.Close, contentDescription = null, tint = Color.Black)
+                }
+            }
+
+            // Texto principal "You Did It!"
+            Text(
+                text = "YOU DID IT!",
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                color = Color(0xFF1E88E5) // Color azul fuerte
+            )
+
+            // Texto secundario
+            Text(
+                text = "Let your friends know about it",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+
+            // Íconos de redes sociales
+            SocialMediaIcons()
+
+            // Sección de "Leave a review"
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Leave a review",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                color = Color.Gray,
+            )
+            RatingStars()
+        }
+    }
+}
