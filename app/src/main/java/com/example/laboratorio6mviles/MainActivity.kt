@@ -87,7 +87,6 @@ fun SplashScreen(navController: NavController) {
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Reemplaza este recurso con el ícono que tengas
             Icon(
                 painter = painterResource(id = R.drawable.sombrerochef),
                 contentDescription = null,
@@ -106,7 +105,6 @@ fun SplashScreen(navController: NavController) {
         }
     }
 
-    // Navegar a la pantalla principal después de un retraso
     LaunchedEffect(key1 = true) {
         delay(2000)
         navController.navigate("home") {
@@ -132,7 +130,6 @@ fun MenuScreen(navController: NavController) {
         Text("SETTINGS", color = Color.White, fontSize = 18.sp)
         Spacer(modifier = Modifier.weight(1f))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            // Reemplaza este recurso con la imagen de perfil que tengas
             Icon(
                 painter = painterResource(id = R.drawable.profilepic),
                 contentDescription = null,
@@ -145,7 +142,7 @@ fun MenuScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class) // Agregar esto si estás usando componentes experimentales
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
     Column {
@@ -168,7 +165,7 @@ fun HomeScreen(navController: NavController) {
             listOf("APPETIZERS", "ENTREES", "DESSERT").forEachIndexed { index, title ->
                 Tab(
                     selected = index == 0,
-                    onClick = { /* Cambiar el índice seleccionado */ },
+                    onClick = {},
                     text = { Text(title) }
                 )
             }
@@ -177,7 +174,6 @@ fun HomeScreen(navController: NavController) {
             item {
                 RecipeCard(navController)
             }
-            // Añadir más items de recetas si es necesario
         }
     }
 }
@@ -188,10 +184,9 @@ fun RecipeCard(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable { /* Lógica para ir a detalles de la receta */ },
+            .clickable {},
     ) {
         Column {
-            // Reemplaza este recurso con la imagen de la receta que tengas
             Image(
 
                 painter = painterResource(id = R.drawable.lasagna),

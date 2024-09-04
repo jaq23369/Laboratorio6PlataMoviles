@@ -1,4 +1,4 @@
-package com.example.laboratorio6mviles.ui.theme
+package com.example.laboratorio6mviles
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,7 +18,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.laboratorio6mviles.R
 
 class MainActivity3 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,7 @@ fun RecipeDetailsCompleteScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray.copy(alpha = 0.3f)), // Fondo translúcido
+            .background(Color.Gray.copy(alpha = 0.3f)),
         contentAlignment = Alignment.Center
     ) {
         CompleteCard()
@@ -54,7 +53,6 @@ fun CompleteCard() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
         ) {
-            // Botón para cerrar la tarjeta (puede agregar funcionalidad más adelante)
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.TopEnd
@@ -63,27 +61,19 @@ fun CompleteCard() {
                     Icon(Icons.Default.Close, contentDescription = null, tint = Color.Black)
                 }
             }
-
-            // Texto principal "You Did It!"
             Text(
                 text = "YOU DID IT!",
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = Color(0xFF1E88E5) // Color azul fuerte
             )
-
-            // Texto secundario
             Text(
                 text = "Let your friends know about it",
                 fontSize = 16.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
-
-            // Íconos de redes sociales
             SocialMediaIcons()
-
-            // Sección de "Leave a review"
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Leave a review",
@@ -101,27 +91,26 @@ fun SocialMediaIcons() {
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Íconos de redes sociales (debes agregar imágenes en drawable)
         Icon(
-            painter = painterResource(id = R.drawable.ic_google), // Reemplaza con tu imagen
+            painter = painterResource(id = R.drawable.ic_google),
             contentDescription = "Google+",
             tint = Color.Red,
             modifier = Modifier.size(32.dp)
         )
         Icon(
-            painter = painterResource(id = R.drawable.ic_facebook), // Reemplaza con tu imagen
+            painter = painterResource(id = R.drawable.ic_facebook),
             contentDescription = "Facebook",
             tint = Color.Blue,
             modifier = Modifier.size(32.dp)
         )
         Icon(
-            painter = painterResource(id = R.drawable.ic_instagram), // Reemplaza con tu imagen
+            painter = painterResource(id = R.drawable.ic_instagram),
             contentDescription = "Instagram",
             tint = Color.Magenta,
             modifier = Modifier.size(32.dp)
         )
         Icon(
-            painter = painterResource(id = R.drawable.ic_twitter), // Reemplaza con tu imagen
+            painter = painterResource(id = R.drawable.ic_twitter),
             contentDescription = "Twitter",
             tint = Color.Cyan,
             modifier = Modifier.size(32.dp)
@@ -137,10 +126,9 @@ fun RatingStars() {
             .padding(top = 8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        // Puedes reemplazar esto con íconos de estrellas para la calificación
         repeat(5) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_star), // Reemplaza con tu imagen de estrella
+                painter = painterResource(id = R.drawable.ic_star),
                 contentDescription = null,
                 tint = Color.Gray,
                 modifier = Modifier.size(32.dp)
