@@ -154,3 +154,53 @@ fun RecipeDetailsScreen() {
         }
     }
 }
+@Composable
+fun PreparationStep(stepNumber: Int, text: String) {
+    Row(modifier = Modifier.padding(vertical = 4.dp)) {
+        Text(
+            text = "$stepNumber.",
+            style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Red)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = text)
+    }
+}
+
+@Composable
+fun Comment(userName: String, date: String, comment: String) {
+    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Replace with a user avatar or icon if you have one
+            Icon(imageVector = Icons.Default.Favorite, contentDescription = null, tint = Color.Gray)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(userName, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(date)
+        }
+        Text(comment)
+    }
+}
+
+@Composable
+fun CommentInput() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    ) {
+        val textState = remember { androidx.compose.runtime.mutableStateOf("") }
+        BasicTextField(
+            value = textState.value,
+            onValueChange = { textState.value = it },
+            textStyle = TextStyle(color = Color.Black),
+            modifier = Modifier
+                .weight(1f)
+                .background(Color(0xFFF1F1F1), shape = MaterialTheme.shapes.small)
+                .padding(8.dp)
+        )
+        IconButton(onClick = { /* Send comment */ }) {
+            Icon(imageVector = Icons.Default.Send, contentDescription = null, tint = Color.Red)
+        }
+    }
+}
