@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Laboratorio6Móviles"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.theme.MainActivity3"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Laboratorio6Móviles">
