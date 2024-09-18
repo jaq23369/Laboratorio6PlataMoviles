@@ -53,17 +53,16 @@ fun AppNavigation(activity: ComponentActivity) {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            // Aquí es donde vas a manejar la navegación con Intent desde el Drawer
+
             DrawerContent(navController = navController, drawerState = drawerState, activity = activity)
         },
         content = {
-            // Aquí pones el contenido principal de la navegación dentro de Compose
+
             NavHost(navController = navController, startDestination = "splash") {
                 composable("splash") { SplashScreen(navController) }
                 composable("home") { HomeScreen(navController, drawerState, scope) }
-                // Las pantallas dentro del NavHost deben ser @Composable
-                composable("savedRecipes") { SavedRecipesScreen(navController) } // Cambia a un Composable
-                composable("settings") { SettingsScreen(navController) }         // Cambia a un Composable
+                composable("savedRecipes") { SavedRecipesScreen(navController) }
+                composable("settings") { SettingsScreen(navController) }
             }
         }
     )
@@ -79,7 +78,7 @@ fun DrawerContent(navController: NavController, drawerState: DrawerState, activi
             .background(Color(0xFFFF0000))
             .padding(16.dp)
     ) {
-        Text("POPULAR RECIPES", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold,
+        Text("HOME", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold,
             modifier = Modifier.clickable {
                 scope.launch { drawerState.close() }
                 navController.navigate("home")
@@ -87,17 +86,16 @@ fun DrawerContent(navController: NavController, drawerState: DrawerState, activi
         Spacer(modifier = Modifier.height(8.dp))
 
         // Opción para navegar a la actividad MainActivity2 usando Intent
-        Text("Prime Rib Roast", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
+        Text("PRIME RIB ROAST", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
             scope.launch { drawerState.close() }
-            // Llamamos a la nueva actividad usando Intent
             val intent = Intent(activity, MainActivity2::class.java)
             activity.startActivity(intent)
         })
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Opción para ir a Settings (MainActivity3)
-        Text("SETTINGS", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
+        // Opción para ir a (MainActivity3)
+        Text("DETAILS COMPLETE", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
             scope.launch { drawerState.close() }
             // Llamada a MainActivity3 usando Intent
             val intent = Intent(activity, MainActivity3::class.java)
