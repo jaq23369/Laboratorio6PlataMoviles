@@ -1,31 +1,22 @@
 package com.example.laboratorio6mviles
 
+import android.content.Intent
 import android.os.Bundle
-import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,48 +24,97 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.laboratorio6mviles.ui.theme.Laboratorio6MóvilesTheme
+import com.example.laboratorio6mviles.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.Tab
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.IconButton
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.Card
-import androidx.compose.ui.unit.dp
-
-
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppNavigation()
+            AppNavigation(activity = this)
         }
     }
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(activity: ComponentActivity) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "splash") {
-        composable("splash") { SplashScreen(navController) }
-        composable("menu") { MenuScreen(navController) }
-        composable("home") { HomeScreen(navController) }
+    val scope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            // Aquí es donde vas a manejar la navegación con Intent desde el Drawer
+            DrawerContent(navController = navController, drawerState = drawerState, activity = activity)
+        },
+        content = {
+            // Aquí pones el contenido principal de la navegación dentro de Compose
+            NavHost(navController = navController, startDestination = "splash") {
+                composable("splash") { SplashScreen(navController) }
+                composable("home") { HomeScreen(navController, drawerState, scope) }
+                // Las pantallas dentro del NavHost deben ser @Composable
+                composable("savedRecipes") { SavedRecipesScreen(navController) } // Cambia a un Composable
+                composable("settings") { SettingsScreen(navController) }         // Cambia a un Composable
+            }
+        }
+    )
+}
+
+@Composable
+fun DrawerContent(navController: NavController, drawerState: DrawerState, activity: ComponentActivity) {
+    val scope = rememberCoroutineScope()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFF0000))
+            .padding(16.dp)
+    ) {
+        Text("POPULAR RECIPES", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold,
+            modifier = Modifier.clickable {
+                scope.launch { drawerState.close() }
+                navController.navigate("home")
+            })
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Opción para navegar a la actividad MainActivity2 usando Intent
+        Text("Prime Rib Roast", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
+            scope.launch { drawerState.close() }
+            // Llamamos a la nueva actividad usando Intent
+            val intent = Intent(activity, MainActivity2::class.java)
+            activity.startActivity(intent)
+        })
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Opción para ir a Settings (MainActivity3)
+        Text("SETTINGS", color = Color.White, fontSize = 18.sp, modifier = Modifier.clickable {
+            scope.launch { drawerState.close() }
+            // Llamada a MainActivity3 usando Intent
+            val intent = Intent(activity, MainActivity3::class.java)
+            activity.startActivity(intent)
+        })
+
+        Spacer(modifier = Modifier.weight(1f))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(id = R.drawable.profilepic),
+                contentDescription = null,
+                modifier = Modifier.size(40.dp),
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("HARRY TRUMAN", color = Color.White, fontSize = 16.sp)
+        }
     }
 }
 
@@ -113,38 +153,17 @@ fun SplashScreen(navController: NavController) {
     }
 }
 
-@Composable
-fun MenuScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFF0000))
-            .padding(16.dp)
-    ) {
-        Text("POPULAR RECIPES", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("SAVED RECIPES", color = Color.White, fontSize = 18.sp)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("SHOPPING LIST", color = Color.White, fontSize = 18.sp)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("SETTINGS", color = Color.White, fontSize = 18.sp)
-        Spacer(modifier = Modifier.weight(1f))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                painter = painterResource(id = R.drawable.profilepic),
-                contentDescription = null,
-                modifier = Modifier.size(40.dp),
-                tint = Color.White
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("HARRY TRUMAN", color = Color.White, fontSize = 16.sp)
-        }
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, drawerState: DrawerState, scope: CoroutineScope) {
+
+    // Cerrar el Drawer explícitamente cuando la pantalla se cargue
+    LaunchedEffect(Unit) {
+        scope.launch {
+            drawerState.close() // Asegurarse de que el Drawer esté cerrado al inicio
+        }
+    }
+
     Column {
         TopAppBar(
             title = { Text("POPULAR RECIPES") },
@@ -152,29 +171,44 @@ fun HomeScreen(navController: NavController) {
                 containerColor = Color(0xFFFF0000),
                 titleContentColor = Color.White
             ),
+            // Ícono de menú para abrir el Drawer
             navigationIcon = {
-                IconButton(onClick = { navController.navigate("menu") }) {
+                IconButton(onClick = {
+                    scope.launch {
+                        drawerState.open() // Abrir el Drawer al presionar el ícono
+                    }
+                }) {
                     Icon(Icons.Default.Menu, contentDescription = null, tint = Color.White)
                 }
             }
         )
-        TabRow(
-            selectedTabIndex = 0,
-            containerColor = Color.White
-        ) {
-            listOf("APPETIZERS", "ENTREES", "DESSERT").forEachIndexed { index, title ->
-                Tab(
-                    selected = index == 0,
-                    onClick = {},
-                    text = { Text(title) }
-                )
-            }
-        }
+        // Aquí va el contenido principal
         LazyColumn {
             item {
                 RecipeCard(navController)
             }
         }
+    }
+}
+
+
+@Composable
+fun SavedRecipesScreen(navController: NavController) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("This is the Saved Recipes Screen", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun SettingsScreen(navController: NavController) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("This is the Settings Screen", fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
 }
 
@@ -188,10 +222,11 @@ fun RecipeCard(navController: NavController) {
     ) {
         Column {
             Image(
-
                 painter = painterResource(id = R.drawable.lasagna),
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth().height(180.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(8.dp))
